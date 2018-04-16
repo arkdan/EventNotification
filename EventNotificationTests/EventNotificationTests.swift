@@ -9,7 +9,7 @@
 import XCTest
 @testable import EventNotification
 
-class AAEvent: UIEEvent {
+class AAEvent: UIEventt {
     let string: String
     init(string: String) {
         self.string = string

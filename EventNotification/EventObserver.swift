@@ -32,10 +32,10 @@ extension Event {
     }
 }
 
-public protocol UIEEvent: Event {} // just to distinguish from UIKit
+public protocol UIEventt: Event {} // just to distinguish from UIKit
 public protocol BGEvent: Event {}
 
-extension UIEEvent {
+extension UIEventt {
     public static var queue: OperationQueue {
         return .main
     }
