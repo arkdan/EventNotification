@@ -54,6 +54,9 @@ public final class EventToken {
         t.tokens = nil
         return t
     }()
+
+    public init() {
+    }
 }
 
 public protocol EventObserver: class {
