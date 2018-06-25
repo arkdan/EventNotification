@@ -26,13 +26,21 @@ public struct KeyboardWillHideEvent: UIEventt {
     }
 }
 
+public struct KeyboardWillChangeFrameEvent: UIEventt {
+    public static var notificationName: Notification.Name {
+        return .UIKeyboardWillChangeFrame
+    }
+}
+
 public protocol KeyboardEventObserver: EventObserver {}
 
 extension KeyboardEventObserver {
 
     public func onKeyboardAppear(handler: @escaping (CGRect) -> Void) {
         handleEventNotification(KeyboardDidShowEvent.self) { notification in
-            let value: NSValue = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+            guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+                return
+            }
             let keyboardFrame: CGRect = value.cgRectValue
             handler(keyboardFrame)
         }
@@ -40,7 +48,9 @@ extension KeyboardEventObserver {
 
     public func onKeyboardWillAppear(handler: @escaping (CGRect) -> Void) {
         handleEventNotification(KeyboardWillShowEvent.self) { notification in
-            let value: NSValue = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+            guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+                return
+            }
             let keyboardFrame: CGRect = value.cgRectValue
             handler(keyboardFrame)
         }
@@ -49,6 +59,16 @@ extension KeyboardEventObserver {
     public func onKeyboardDissappear(handler: @escaping () -> Void) {
         handleEventNotification(KeyboardWillHideEvent.self) { _ in
             handler()
+        }
+    }
+
+    public func onKeyboardFrameChanged(handler: @escaping (CGRect) -> Void) {
+        handleEventNotification(KeyboardWillChangeFrameEvent.self) { notification in
+            guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+                return
+            }
+            let keyboardFrame: CGRect = value.cgRectValue
+            handler(keyboardFrame)
         }
     }
 
