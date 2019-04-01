@@ -7,7 +7,7 @@ Normally, you would do so by sending a Notification with NotificationCenter, att
 This library does exactly that; with sugar:
 
 - no need to define a notificationName
-- no need to unsubscribe;observer will be unsubscribed from NotificationCenter automatically upon deinit
+- no need to unsubscribe; observer will be unsubscribed from NotificationCenter automatically upon deinit
 - you still have ability to unsubscribe at any point
 - clear syntax.
 
@@ -19,7 +19,7 @@ struct A {
 }
 ```
 
-To send an instance of `A` to all interested observes,
+To send an instance of `A` to all interested observers,
 
 ```
 extension A: Event {}
@@ -89,8 +89,8 @@ class ViewControllerController: UIViewController, KeyboardEventObserver {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         unsubscribeKeyboardAppear()
         unsubscribeKeyboardDisappear()
