@@ -11,17 +11,17 @@ import XCTest
 
 class DefEventObserver: DefaultEventObserver {
 
-    var receivedAA: ((String) -> Void)?
-    var receivedBB: ((String) -> Void)?
+    var receivedA: ((String) -> Void)?
+    var receivedB: ((String) -> Void)?
 
     var onDeinit: (() -> Void)?
 
     init() {
-        handleEvent(AAEvent.self) { [weak self] (aaEvent) in
-            self?.receivedAA?(aaEvent.string)
+        handleEvent(A.self) { [weak self] (eventA) in
+            self?.receivedA?(eventA.string)
         }
-        handleEvent(BBEvent.self) { [weak self] (bbEvent) in
-            self?.receivedBB?(bbEvent.string)
+        handleEvent(B.self) { [weak self] (eventB) in
+            self?.receivedB?(eventB.string)
         }
     }
 
@@ -38,13 +38,13 @@ class DefaultEventObserverTests: XCTestCase {
 
         let testString = #function
 
-        let event = AAEvent(string: testString)
+        let event = A(string: testString)
 
-        observer.receivedAA = { string in
+        observer.receivedA = { string in
             XCTAssert(string == testString)
             exp.fulfill()
         }
-        observer.receivedBB = { string in
+        observer.receivedB = { string in
             XCTFail()
         }
 
@@ -58,13 +58,13 @@ class DefaultEventObserverTests: XCTestCase {
 
         let testString = #function
 
-        let event = BBEvent(string: testString)
+        let event = B(string: testString)
 
-        observer.receivedAA = { string in
+        observer.receivedA = { string in
             XCTFail()
         }
 
-        observer.receivedBB = { string in
+        observer.receivedB = { string in
             XCTAssert(string == testString)
             exp.fulfill()
         }
@@ -91,14 +91,14 @@ class DefaultEventObserverTests: XCTestCase {
 
         var observer: DefEventObserver? = DefEventObserver()
 
-        let eventA = AAEvent(string: "")
-        let eventB = BBEvent(string: "")
+        let eventA = A(string: "")
+        let eventB = B(string: "")
 
-        observer!.receivedAA = { string in
+        observer!.receivedA = { string in
             XCTFail()
         }
 
-        observer!.receivedBB = { string in
+        observer!.receivedB = { string in
             XCTFail()
         }
 
