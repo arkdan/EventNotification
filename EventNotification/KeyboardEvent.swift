@@ -8,25 +8,25 @@
 
 import UIKit
 
-public struct KeyboardDidShowEvent: UIEventt {
+public struct KeyboardDidShowEvent: Event {
     public static var notificationName: Notification.Name {
         return .UIKeyboardDidShow
     }
 }
 
-public struct KeyboardWillShowEvent: UIEventt {
+public struct KeyboardWillShowEvent: Event {
     public static var notificationName: Notification.Name {
         return .UIKeyboardWillShow
     }
 }
 
-public struct KeyboardWillHideEvent: UIEventt {
+public struct KeyboardWillHideEvent: Event {
     public static var notificationName: Notification.Name {
         return .UIKeyboardWillHide
     }
 }
 
-public struct KeyboardWillChangeFrameEvent: UIEventt {
+public struct KeyboardWillChangeFrameEvent: Event {
     public static var notificationName: Notification.Name {
         return .UIKeyboardWillChangeFrame
     }
