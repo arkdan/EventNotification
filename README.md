@@ -31,8 +31,8 @@ class SomeEventObserver: EventObserver {
     let eventToken = EventToken()
 
     func startObservingA() {
-        handleEvent(A.self) { [weak self] (a) in
-            print("\(a.string)")
+        handleEvent(A.self) { [weak self] a in
+            print(a.string)
         }
     }
     
@@ -43,6 +43,10 @@ class SomeEventObserver: EventObserver {
     func stopObservingAll() {
         self.unsubscribe()
     }
+}
+
+let a = A(string: "hfgjhk m,jkj fghjv")
+a.send()
 ```
 
 `let eventToken = EventToken()` is the only requirement for a observer class.
@@ -54,8 +58,8 @@ It the observer class may conform to `DefaultEventObserver`, which provides defa
 class OtherEventObserver: DefaultEventObserver {
 
     func startObservingA() {
-        handleEvent(A.self) { [weak self] (a) in
-            print("\(a.string)")
+        handleEvent(A.self) { [weak self] a in
+            print(a.string)
         }
     }
 }
